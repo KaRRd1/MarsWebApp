@@ -1,0 +1,11 @@
+@model ChangeNicknameViewModel
+
+<form name="nickname" class="settings-item settings-form d-none" method="post" asp-controller="Settings" asp-action="ChangeNickname">
+    <span class="mb-1">New nickname</span>
+    <input type="text" class="text-input mb-1" asp-for="Nickname">
+    <span class="settings-validation mb-2" asp-validation-for="Nickname"></span>
+    <div class="controls">
+        <input type="submit" class="btn btn-light me-2" value="Change nickname">
+        <button class="btn btn-outline-secondary settings-item-close">Cancel</button>
+    </div>
+</form>

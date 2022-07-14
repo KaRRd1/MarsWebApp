@@ -1,0 +1,38 @@
+@model SearchProfilesViewModel
+
+@{
+    var query = Context.Request.Query["query"];
+    var path = Context.Request.Path + Context.Request.QueryString;
+    ViewData["Title"] = query;
+}
+
+<h3>Search result «@query»</h3>
+<h3>Profiles</h3>
+
+<div class="mb-3">
+    @if (!Model.Profiles.Any())
+    {
+        <span>Profiles not found</span>
+    }
+    <div class="profiles">
+        @foreach (var profile in Model.Profiles)
+        {
+            <a class="profile-item elem-backlight" asp-controller="Profile" asp-action="Index" asp-route-username="@profile.Nickname">
+                <div class="avatar-medium me-2">
+                    <partial name="_profileAvatar" for="@profile"/>
+                </div>
+                <span>@profile.Nickname</span>
+            </a>
+        }
+    </div>
+</div>
+<div class="loading-wrapper mb-2 d-none" id="loader">
+    <div class="spinner-border"></div>
+</div>
+
+@section scripts
+{
+    <script>
+    InfiniteScroll("@Context.Request.GetPathWithQuery(true)", ".profiles").init();
+    </script>
+}

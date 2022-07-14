@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Authorization";
+}
+
+<div class="authorization-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-md-5 col-lg-7 col-xxl-8 d-sm-block d-none"></div>
+            <div class="col position-relative">
+                <partial name="_LogInFormPartial" model="@(new LogInViewModel())"/>
+                <partial name="_SignUpFormPartial" model="@(new SignUpViewModel())"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

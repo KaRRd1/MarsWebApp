@@ -1,0 +1,41 @@
+﻿@using Web.Interfaces
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IProfileItemViewModelService _profileItemViewModelService;
+
+@{
+    var userId = User.GetLoggedInUserId();
+    
+    ProfileViewModel? profile = null;
+    if (userId != null)
+        profile = await _profileItemViewModelService.GetProfileItem(userId.Value);
+}
+
+@if (profile != null)
+{
+    <div class="dropdown">
+        <div class="dropdown-toggle d-flex align-items-center" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="avatar-medium me-2">
+                <partial name="_profileAvatar" for="@profile"/>
+            </div>
+            <span>@profile.Nickname</span>
+        </div>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li>
+                <a class="dropdown-item" asp-area="" asp-controller="Profile" asp-action="Index" asp-route-username="@profile.Nickname">Profile</a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-area="Account" asp-controller="Settings" asp-action="Index">Settings</a>
+            </li>
+            <li>
+                <a class="dropdown-item" asp-area="Account" asp-controller="Authorization" asp-action="LogOut" 
+                   asp-route-returnUrl="@Context.Request.GetPathWithQuery()">Log Out</a>
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+    <a class="btn btn-light rounded-pill" asp-controller="Authorization" asp-action="Index" asp-area="Account" 
+       asp-route-returnUrl="@Context.Request.GetPathWithQuery()">Log in</a>
+}

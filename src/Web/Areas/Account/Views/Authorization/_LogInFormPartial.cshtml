@@ -1,0 +1,22 @@
+@model LogInViewModel
+
+<form class="auth-form auth-form-active" method="post" asp-action="LogIn" asp-route-returnUrl="@Context.Request.Query["returnUrl"]">
+    <h2 class="mb-3">Welcome to Mars!</h2>
+    <div class="inline-input-group mb-3">
+        <i class="fa-solid fa-user input-icon"></i>
+        <input type="text" class="auth-input" asp-for="Nickname" placeholder="Nickname">
+    </div>
+    <div class="inline-input-group mb-3">
+        <i class="fa-solid fa-lock input-icon"></i>
+        <input type="password" class="auth-input" asp-for="Password" placeholder="Password" autocomplete="on">
+    </div>
+    @if (TempData["LogInErrorMessage"] != null)
+    {
+        <span class="auth-validation-error ms-2 mb-2">@TempData["LogInErrorMessage"]</span>
+    }
+    <button type="submit" class="btn btn-light rounded-pill mb-2">Log In</button>
+    <span>
+        New to Mars?
+        <a class="form-auth-toggle text-decoration-underline">Sign Up</a>
+    </span>
+</form>

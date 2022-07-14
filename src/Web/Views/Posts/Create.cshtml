@@ -1,0 +1,27 @@
+@model PostCreateViewModel
+
+@{
+    ViewData["Title"] = "New post";
+}
+
+<h3 class="mb-3">New post</h3>
+<div class="post">
+    <form method="post" asp-controller="Posts" asp-action="Create" id="create-post-form">
+        <div class="create-post-input-group mb-3 flex-column">
+            <label class="mb-1" asp-for="Title">Title</label>
+            <input type="text" class="text-input post-title" asp-for="Title">
+            <span class="mt-1" asp-validation-for="Title"></span>
+        </div>
+        <div class="create-post-input-group mb-3 flex-column">
+            <label class="mb-1" asp-for="Content">Content</label>
+            <textarea class="text-input post-content-input" asp-for="Content" oninput="autosize(this)"></textarea>
+            <span class="mt-1" asp-validation-for="Content"></span>
+        </div>
+        <input type="submit" class="btn btn-light rounded-pill" value="Publish">
+    </form>
+</div>
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

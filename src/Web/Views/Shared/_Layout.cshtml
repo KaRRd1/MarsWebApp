@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>@ViewData["Title"] - Mars</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/main.css">
+</head>
+<body>
+<partial name="_HeaderPartial"/>
+<main class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 col-lg-8 order-1 order-md-0">
+            @RenderBody()
+        </div>
+        <div class="col-md-4 col-lg-4 order-0 order-md-1 mb-3 mb-md-0">
+            <aside class="sidebar">
+                <form class="d-flex align-items-center text-input" method="get" asp-controller="Search" asp-action="Index">
+                    <input type="text" class="invisible-input flex-grow-1 me-1 overflow-hidden" placeholder="Search.." autocomplete="off" name="query">
+                    <button class="btn p-0 border-0">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    </button>
+                </form>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a class="btn btn-light rounded-pill w-100 mt-2" asp-action="Create" asp-controller="Posts">Create post</a>
+                }
+            </aside>
+        </div>
+    </div>
+</main>
+<partial name="_FooterPartial"/>
+
+<script src="https://kit.fontawesome.com/a373b1362a.js" crossorigin="anonymous"></script>
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/main.js"></script>
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <script>
+        Post("@Url.Action("Rate", "Posts")").init()
+    </script>
+}
+
+@await RenderSectionAsync("scripts", false)
+</body>
+</html>

@@ -1,0 +1,48 @@
+@model SettingsIndexViewModel
+
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-xl-6 col-md-8 mx-auto d-flex flex-column align-items-center">
+            <h3 class="">Settings</h3>
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="settings-message settings-message-success w-100 mb-3">
+                    <i class="fa-solid fa-circle-check settings-message-icon me-3"></i>
+                    <span>@TempData["SuccessMessage"]</span>
+                </div>
+            }
+            <div class="settings-item settings-row elem-backlight">
+                <div class="d-flex align-items-center me-2">
+                    <span class="settings-item-header">Nickname</span>
+                    <span>@Model.Nickname</span>
+                </div>
+                <button class="button-link" data-target-name="nickname">change</button>
+            </div>
+            <partial name="_ChangeNicknameFormPartial" model="@(new ChangeNicknameViewModel())"/>
+            <div class="settings-item settings-row elem-backlight">
+                <div class="d-flex align-items-center me-2">
+                    <span class="settings-item-header">Email</span>
+                    <span class="text-break">@Model.Email</span>
+                </div>
+                <button class="button-link" data-target-name="email">change</button>
+            </div>
+            <partial name="_ChangeEmailFormPartial" model="@(new ChangeEmailViewModel())"/>
+            <div class="settings-item settings-row elem-backlight">
+                <div class="d-flex align-items-center me-2">
+                    <span class="settings-item-header">Password</span>
+                </div>
+                <button class="button-link" data-target-name="password">change</button>
+            </div>
+            <partial name="_ChangePasswordFormPartial" model="@(new ChangePasswordViewModel())"/>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

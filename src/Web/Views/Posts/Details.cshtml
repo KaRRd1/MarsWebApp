@@ -1,0 +1,39 @@
+﻿@model PostItemViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+<div class="posts">
+    <partial name="_post" for="@Model"/>
+</div>
+
+<div class="comments-container mb-3">
+    <h4>Comments</h4>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <form id="newCommentForm" asp-action="CreateComment" method="post">
+            <div class="d-flex">
+                <textarea class="text-input comment-input me-2" maxlength="3000" rows="1" placeholder="Write comment" name="content" oninput="autosize(this)"></textarea>
+                <input type="hidden" value="@Model.Id" name="postId">
+                <input type="submit" class="btn btn-light rounded-pill d-flex align-self-end" value="Send">
+            </div>
+        </form>
+    }
+    <div class="comments mt-2">
+        @if (Model.Comments!.Any())
+        {
+            <partial name="_CommentsPartial" for="@Model.Comments"/>
+        }
+        else
+        {
+            <span class="no-comments">No comments. You can be the first!</span>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+    Comments("@Url.Action("GetCommentReplies")").init()
+    </script>
+}

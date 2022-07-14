@@ -1,0 +1,42 @@
+@model CommentViewModel
+
+<article class="comment mt-3" id="comment_@Model.Id" data-comment-id="@Model.Id">
+    <div class="comment-body">
+        <div class="comment-header d-flex align-items-center mb-2">
+            <a class="comment-author d-flex align-items-center" asp-controller="Profile" asp-action="Index" asp-route-username="@Model.Author.Nickname">
+                <div class="avatar-small me-1">
+                    <partial name="_profileAvatar" for="Author"/>
+                </div>
+                <span class="comment-author">@Model.Author.Nickname</span>
+            </a>
+            <span class="relative-date">@Model.CreatedDate.DateTime.ToRelativeDate()</span>
+        </div>
+        <div class="comment-main">
+            <p class="comment-text">@Model.CommentContent</p>
+        </div>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <div class="comment-controls mt-1">
+                <div class="reply-comment-container w-100">
+                    <button class="button-link reply-btn">Reply</button>
+                    <form class="reply-comment-form d-flex d-none" asp-action="CreateComment" method="post">
+                        <textarea class="text-input comment-input me-2" rows="1" placeholder="Write reply..." name="content" oninput="autosize(this)"></textarea>
+                        <input type="hidden" value="@Model.PostId" name="postId"/>
+                        <input type="hidden" value="@Model.Id" name="parentCommentId"/>
+                        <input type="submit" class="btn btn-light rounded-pill d-flex align-self-end" value="Reply">
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (Model.CommentRepliesCount != 0)
+    {
+        <button class="btn-branch btn-show-branch">show branch</button>
+        <button class="btn-branch btn-hide-branch d-none">hide branch</button>
+    }
+    <div class="comment-replies-wrapper">
+        <div class="comment-replies-branch @(Model.CommentRepliesCount == 0 ? "" : "d-none")"></div>
+    </div>
+</article>

@@ -1,0 +1,38 @@
+@model SignUpViewModel
+
+<form class="auth-form auth-form-hidden" method="post" asp-action="SignUp" asp-route-returnUrl="@Context.Request.Query["returnUrl"]">
+    <h2 class="mb-3">Join us</h2>
+    <div class="input-group-wrapper mb-3">
+        <div class="inline-input-group">
+            <i class="fa-solid fa-user input-icon"></i>
+            <input type="text" class="auth-input" asp-for="Nickname" id="signUpNickname" placeholder="Nickname">
+        </div>
+        <span class="auth-validation-error w-100" asp-validation-for="Nickname"></span>
+    </div>
+    <div class="input-group-wrapper mb-3">
+        <div class="inline-input-group">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <input type="text" class="auth-input" asp-for="Email" placeholder="Email">
+        </div>
+        <span class="auth-validation-error w-100" asp-validation-for="Email"></span>
+    </div>
+    <div class="input-group-wrapper mb-3">
+        <div class="inline-input-group">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input type="password" class="auth-input" asp-for="Password" id="signUpPassword" placeholder="Password">
+        </div>
+        <span class="auth-validation-error w-100" asp-validation-for="Password"></span>
+    </div>
+    <div class="input-group-wrapper mb-3">
+        <div class="inline-input-group">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input type="password" class="auth-input" asp-for="ConfirmPassword" placeholder="Confirm password">
+        </div>
+        <span class="auth-validation-error w-100" asp-validation-for="ConfirmPassword"></span>
+    </div>
+    <button type="submit" class="btn btn-light rounded-pill mb-2">Sign Up</button>
+    <span>
+        Already on Mars?
+        <a class="form-auth-toggle text-decoration-underline">Log In</a>
+    </span>
+</form>

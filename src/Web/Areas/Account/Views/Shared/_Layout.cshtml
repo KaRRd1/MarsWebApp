@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>@ViewData["Title"] - Mars</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/main.css">
+</head>
+<body>
+<partial name="_HeaderPartial"/>
+<main>
+    @RenderBody()
+</main>
+<partial name="_FooterPartial"/>
+
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/a373b1362a.js" crossorigin="anonymous"></script>
+<script src="~/js/main.js"></script>
+<script>
+    Authorization.init();
+    Settings.init();
+</script>
+@await RenderSectionAsync("scripts", false)
+</body>
+</html>

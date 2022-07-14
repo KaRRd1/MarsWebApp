@@ -1,0 +1,37 @@
+@model Web.ViewModels.Post.PostsViewModel
+
+@{
+    ViewData["Title"] = "New";
+}
+
+<div class="feed-panel mb-3">
+    <h3>New posts</h3>
+</div>
+
+@if (Model.PostItems.Any())
+{
+    <div class="posts">
+        @foreach (var post in Model.PostItems)
+        {
+            <partial name="_post" for="@post"/>
+        }
+    </div>
+}
+else
+{
+
+    <div class="no-posts-container mt-3">
+        <div class="tumbleweed"></div>
+    </div>
+}
+
+<div class="loading-wrapper mb-2 d-none" id="loader">
+    <div class="spinner-border"></div>
+</div>
+
+@section scripts
+{
+    <script>
+    InfiniteScroll("@Context.Request.GetPathWithQuery(true)", ".posts").init();
+    </script>
+}

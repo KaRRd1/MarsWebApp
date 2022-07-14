@@ -1,0 +1,10 @@
+@model ProfileViewModel
+
+@if (Model.PictureUri != null)
+{
+    <img src="@Model.PictureUri" class="avatar" alt="avatar"/>
+}
+else
+{
+    <img src="~/Images/Profiles/profile_default.jpg" class="avatar" alt="avatar"/>
+}

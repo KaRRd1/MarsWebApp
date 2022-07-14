@@ -1,0 +1,59 @@
+@model ProfileIndexViewModel
+
+@{
+    ViewData["Title"] = $"{Model.ProfileViewModel.Nickname}";
+}
+
+<div class="profile-wrapper d-md-flex">
+    <div class="col-md-5 col-lg-4 profile-main">
+        <div class="avatar-big position-relative mb-2">
+            @if (Model.ProfileViewModel.UserId == User.GetLoggedInUserId())
+            {
+                <form method="post" asp-controller="Profile" asp-action="UpdateAvatar" enctype="multipart/form-data">
+                    <label class="avatar-set" for="uploadImage">
+                        <i class="fa-solid fa-camera upload-icon"></i>
+                    </label>
+                    <input type="file" class="d-none" id="uploadImage" name="file" accept="image/*" onchange="this.form.submit()">
+                </form>
+            }
+            <partial name="_profileAvatar" for="ProfileViewModel"/>
+        </div>
+        <span class="profile-nickname">@Model.ProfileViewModel.Nickname</span>
+        <span>Rating: @Model.Rating</span>
+    </div>
+    <div class="col profile-statistics">
+        <div class="profile-statistics-item">
+            <span>Left comments</span>
+            <span>@Model.CommentsCount</span>
+        </div>
+        <div class="profile-statistics-item">
+            <span>Liked</span>
+            <span>@Model.PositiveRatings</span>
+        </div>
+        <div class="profile-statistics-item">
+            <span>Disliked</span>
+            <span>@Model.NegativeRatings</span>
+        </div>
+        <div class="profile-statistics-item">
+            <span>On Mars since</span>
+            <span>@Model.SignUpDate.ToShortDateString()</span>
+        </div>
+    </div>
+</div>
+<h3>Posts (@Model.PostsViewModel.Pagination.TotalItems)</h3>
+<div class="posts">
+    @foreach (var post in Model.PostsViewModel.PostItems)
+    {
+        <partial name="_post" for="@post"></partial>
+    }
+</div>
+<div class="loading-wrapper mb-2 d-none" id="loader">
+    <div class="spinner-border"></div>
+</div>
+
+@section scripts
+{
+    <script>
+    InfiniteScroll("@Context.Request.GetPathWithQuery(true)", ".posts").init();
+    </script>
+}

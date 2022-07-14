@@ -1,0 +1,33 @@
+﻿@model Web.ViewModels.Post.PostItemViewModel
+
+<article class="post" data-post-id="@Model.Id">
+    <div class="post-header d-flex align-items-center mb-2">
+        <a class="d-flex align-items-center" asp-controller="Profile" asp-action="Index" asp-route-username="@Model.Author.Nickname">
+            <div class="avatar-small me-1">
+                <partial name="_profileAvatar" for="Author"/>
+            </div>
+            <span class="author-name">@Model.Author.Nickname</span>
+        </a>
+        <span class="relative-date bs-tooltip-top" data-bs-toggle="tooltip" data-bs-placement="top" title="@Model.DateCreated.ToString()">@Model.DateCreated.DateTime.ToRelativeDate()</span>
+    </div>
+    <div class="post-main mb-3">
+        <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id">
+            <h3 class="post-title">@Model.Title</h3>
+        </a>
+        <div class="post-text">@Model.Content</div>
+    </div>
+    <div class="post-read-more elem-backlight post-read-more-collapsed">
+        <span>Read more</span>
+    </div>
+    <div class="post-footer">
+        <div class="post-rating me-3">
+            <i class="fa-solid fa-arrow-up up-rating-btn @(Model.IsLiked == true ? "up-rating-active" : "")"></i>
+            <span class="rating-counter px-2">@Model.Raiting</span>
+            <i class="fa-solid fa-arrow-down down-rating-btn @(Model.IsLiked == false ? "down-rating-active" : "")"></i>
+        </div>
+        <a class="post-comments-btn elem-backlight" asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" asp-fragment="comments">
+            <i class="fa-solid fa-comment me-1"></i>
+            <span>@Model.CommentsCount</span>
+        </a>
+    </div>
+</article>
