@@ -16,7 +16,7 @@ public class CommentRepository : BaseRepository<PostComment>, ICommentRepository
     public IAsyncEnumerable<PostComment> GetSortedPostComments(int postId, int? loggedInUserId)
     {
         return _dbContext.PostComments
-            .Where(x => x.PostId == postId && x.ReplyCommentId == null)
+            .Where(x => x.PostId == postId && x.ParentCommentId == null)
             .OrderByDescending(x => x.UserId == loggedInUserId)
             .ThenByDescending(x => x.DateCreated)
             .AsAsyncEnumerable();
@@ -25,7 +25,7 @@ public class CommentRepository : BaseRepository<PostComment>, ICommentRepository
     public IAsyncEnumerable<PostComment> GetSortedReplyComments(int replyCommentId)
     {
         return _dbContext.PostComments
-            .Where(x => x.ReplyCommentId == replyCommentId)
+            .Where(x => x.ParentCommentId == replyCommentId)
             .OrderBy(x => x.DateCreated)
             .AsAsyncEnumerable();
     }

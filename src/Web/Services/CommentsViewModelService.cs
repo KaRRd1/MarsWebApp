@@ -43,7 +43,7 @@ public class CommentsViewModelService : ICommentsViewModelService
             PostId = comment.PostId,
             Author = await _profileItemViewModelService.GetProfileItem(comment.UserId),
             CommentContent = comment.Content,
-            CommentRepliesCount = await _commentRepository.GetCountAsync(x => x.ReplyCommentId == comment.Id),
+            CommentRepliesCount = await _commentRepository.GetCountAsync(x => x.ParentCommentId == comment.Id),
             CreatedDate = comment.DateCreated
         };
     }
