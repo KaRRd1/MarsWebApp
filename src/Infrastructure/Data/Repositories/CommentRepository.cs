@@ -22,10 +22,10 @@ public class CommentRepository : BaseRepository<PostComment>, ICommentRepository
             .AsAsyncEnumerable();
     }
 
-    public IAsyncEnumerable<PostComment> GetSortedReplyComments(int replyCommentId)
+    public IAsyncEnumerable<PostComment> GetSortedReplyComments(int commentId)
     {
         return _dbContext.PostComments
-            .Where(x => x.ParentCommentId == replyCommentId)
+            .Where(x => x.ParentCommentId == commentId)
             .OrderBy(x => x.DateCreated)
             .AsAsyncEnumerable();
     }

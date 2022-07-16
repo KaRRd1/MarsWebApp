@@ -39,7 +39,7 @@ public class PostsController : Controller
     [Route("{controller}/{id:int}")]
     public async Task<IActionResult> Details(int id)
     {
-        var vm = await _postsViewModelService.GetPostItem(id);
+        var vm = await _postsViewModelService.GetPostItemWithComments(id);
 
         if (vm == null)
             return NotFound();

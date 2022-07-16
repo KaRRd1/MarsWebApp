@@ -55,7 +55,8 @@ public class PostService : IPostService
         
         if (parentCommentId.HasValue)
             _logger.LogInformation($"User[ID: {userId}] replied to comment[ID: {parentCommentId}] in a post[ID: {postId}]");
-        _logger.LogInformation($"User[ID: {userId}] added comment to post[ID: {postId}]");
+        else 
+            _logger.LogInformation($"User[ID: {userId}] added comment to post[ID: {postId}]");
         
         return newComment;
     }

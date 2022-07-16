@@ -96,7 +96,7 @@ public class PostsViewModelService : IPostsViewModelService
         };
     }
 
-    public async Task<PostItemViewModel?> GetPostItem(int postId)
+    public async Task<PostItemViewModel?> GetPostItemWithComments(int postId)
     {
         var post = await _postRepository.SingleAsync(x => x.Id == postId);
 

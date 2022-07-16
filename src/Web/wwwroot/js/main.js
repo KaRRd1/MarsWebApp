@@ -56,7 +56,6 @@ const Authorization = (function () {
     return {
         init: function () {
             $(formElem).each((i, elem) => {
-                console.log(elem);
                 $(".form-auth-toggle", elem).on("click", () => {
                     $(formElem).toggleClass("auth-form-active").toggleClass("auth-form-hidden");
                 })

@@ -14,7 +14,7 @@ public interface IPostsViewModelService
 
     Task<PostsViewModel> GetPostsByQuery(int page, string query);
 
-    Task<PostItemViewModel?> GetPostItem(int postId);
+    Task<PostItemViewModel?> GetPostItemWithComments(int postId);
 
     Task<PostItemViewModel> MapPost(Post post);
 }
